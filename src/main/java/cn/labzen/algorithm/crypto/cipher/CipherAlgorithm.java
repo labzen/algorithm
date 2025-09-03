@@ -1,23 +1,23 @@
-package cn.labzen.algorithm.crypto.cipher
+package cn.labzen.algorithm.crypto.cipher;
 
 /**
  * The following names can be specified as the algorithm component in a transformation when requesting an instance of Cipher.
- *
+ * <p>
  * 当请求Cipher实例时，可以将下列名称指定为转换中的算法组件。
  */
-enum class CipherAlgorithm(val value: String) {
+public enum CipherAlgorithm {
 
   /**
    * Advanced Encryption Standard as specified by NIST in FIPS 197. Also known as the Rijndael algorithm by Joan Daemen and Vincent Rijmen,
    * AES is a 128-bit block cipher supporting keys of 128, 192, and 256 bits.
-   *
+   * <p>
    * To use the AES cipher with only one valid key size, use the format AES_<n>, where <n> can be 128, 192 or 256.
    */
   AES("AES"),
 
   /**
    * The AES key wrapping algorithm as described in RFC 3394.
-   *
+   * <p>
    * To use the AESWrap cipher with only one valid key size, use the format AESWrap_<n>, where <n> can be 128, 192, or 256.
    */
   AES_WRAP("AESWrap"),
@@ -57,7 +57,7 @@ enum class CipherAlgorithm(val value: String) {
   /**
    * The password-based encryption algorithm defined in PKCS #5, using the specified message digest (<digest>) or pseudo-random
    * function (<prf>) and encryption algorithm (<encryption>). Examples:
-   *
+   * <p>
    * PBEWithMD5AndDES: The password-based encryption algorithm as defined in RSA Laboratories, "PKCS #5: Password-Based
    * Encryption Standard," version 1.5, Nov 1993. Note that this algorithm implies CBC as the cipher mode and PKCS5Padding
    * as the padding scheme and cannot be used with any other cipher modes or padding schemes.
@@ -67,7 +67,7 @@ enum class CipherAlgorithm(val value: String) {
   /**
    * The password-based encryption algorithm defined in PKCS #5, using the specified message digest (<digest>) or pseudo-random
    * function (<prf>) and encryption algorithm (<encryption>). Examples:
-   *
+   * <p>
    * PBEWithHmacSHA256AndAES_128: The password-based encryption algorithm as defined in RSA Laboratories, "PKCS #5:
    * Password-Based Cryptography Standard," version 2.0, September 2000.
    */
@@ -91,5 +91,15 @@ enum class CipherAlgorithm(val value: String) {
   /**
    * The RSA encryption algorithm as defined in PKCS #1
    */
-  RSA("RSA")
+  RSA("RSA");
+
+  private final String value;
+
+  CipherAlgorithm(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }

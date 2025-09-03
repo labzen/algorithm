@@ -1,6 +1,6 @@
 package cn.labzen.algorithm.crypto;
 
-import cn.labzen.algorithm.crypto.Checksums.Algorithms;
+import cn.labzen.algorithm.crypto.checksum.Algorithms;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

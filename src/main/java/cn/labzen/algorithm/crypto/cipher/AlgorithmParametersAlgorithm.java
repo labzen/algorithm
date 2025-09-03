@@ -1,11 +1,11 @@
-package cn.labzen.algorithm.crypto.cipher
+package cn.labzen.algorithm.crypto.cipher;
 
 /**
  * The algorithm names in this section can be specified when generating an instance of AlgorithmParameters.
- *
+ * <p>
  * 在生成AlgorithmParameters实例时，可以指定本节中的算法名称。
  */
-enum class AlgorithmParametersAlgorithm(val value: String) {
+public enum AlgorithmParametersAlgorithm {
 
   /**
    * Parameters for use with the AES algorithm.
@@ -66,5 +66,15 @@ enum class AlgorithmParametersAlgorithm(val value: String) {
   /**
    * Parameters for use with the RC2 algorithm.
    */
-  RC2("RC2")
+  RC2("RC2");
+
+  private final String value;
+
+  AlgorithmParametersAlgorithm(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }

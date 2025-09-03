@@ -1,11 +1,11 @@
-package cn.labzen.algorithm.crypto.cipher
+package cn.labzen.algorithm.crypto.cipher;
 
 /**
  * The following algorithm names can be specified when requesting an instance of KeyGenerator.
- *
+ * <p>
  * 以下算法名称可以在请求KeyGenerator实例时指定。
  */
-enum class KeyGeneratorAlgorithm(val value: String) {
+public enum KeyGeneratorAlgorithm {
 
   /**
    * Key generator for use with the AES algorithm.
@@ -65,5 +65,15 @@ enum class KeyGeneratorAlgorithm(val value: String) {
   /**
    * Key generator for use with the RC2 algorithm.
    */
-  RC2("RC2")
+  RC2("RC2");
+
+  private final String value;
+
+  KeyGeneratorAlgorithm(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }

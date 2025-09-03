@@ -1,11 +1,11 @@
-package cn.labzen.algorithm.crypto.cipher
+package cn.labzen.algorithm.crypto.cipher;
 
 /**
  * The following names can be specified as the mode component in a transformation when requesting an instance of Cipher.
- *
+ * <p>
  * 当请求Cipher实例时，可以将下列名称指定为转换中的模式组件。
  */
-enum class CipherMode(val value: String) {
+public enum CipherMode {
   /**
    * No mode.
    */
@@ -23,7 +23,7 @@ enum class CipherMode(val value: String) {
 
   /**
    * Cipher Feedback Mode, as defined in FIPS PUB 81.
-   *
+   * <p>
    * Using modes such as CFB and OFB, block ciphers can encrypt data in units smaller than the cipher's actual block
    * size. When requesting such a mode, you may optionally specify the number of bits to be processed at a time by
    * appending this number to the mode name as shown in the "DES/CFB8/NoPadding" and "DES/OFB32/PKCS5Padding" transformations.
@@ -34,7 +34,7 @@ enum class CipherMode(val value: String) {
 
   /**
    * Cipher Feedback Mode, as defined in FIPS PUB 81.
-   *
+   * <p>
    * Using modes such as CFB and OFB, block ciphers can encrypt data in units smaller than the cipher's actual block
    * size. When requesting such a mode, you may optionally specify the number of bits to be processed at a time by
    * appending this number to the mode name as shown in the "DES/CFB8/NoPadding" and "DES/OFB32/PKCS5Padding" transformations.
@@ -65,7 +65,7 @@ enum class CipherMode(val value: String) {
 
   /**
    * Output Feedback Mode, as defined in FIPS PUB 81.
-   *
+   * <p>
    * Using modes such as CFB and OFB, block ciphers can encrypt data in units smaller than the cipher's actual block
    * size. When requesting such a mode, you may optionally specify the number of bits to be processed at a time by
    * appending this number to the mode name as shown in the "DES/CFB8/NoPadding" and "DES/OFB32/PKCS5Padding" transformations.
@@ -76,7 +76,7 @@ enum class CipherMode(val value: String) {
 
   /**
    * Output Feedback Mode, as defined in FIPS PUB 81.
-   *
+   * <p>
    * Using modes such as CFB and OFB, block ciphers can encrypt data in units smaller than the cipher's actual block
    * size. When requesting such a mode, you may optionally specify the number of bits to be processed at a time by
    * appending this number to the mode name as shown in the "DES/CFB8/NoPadding" and "DES/OFB32/PKCS5Padding" transformations.
@@ -88,5 +88,15 @@ enum class CipherMode(val value: String) {
   /**
    * Propagating Cipher Block Chaining, as defined by Kerberos V4.
    */
-  PCBC("PCBC")
+  PCBC("PCBC");
+
+  private final String value;
+
+  CipherMode(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }
