@@ -40,7 +40,7 @@ public final class Crc16 {
   public static int ccitt(byte[] buffer) {
     int wCRCin = VALUE_00;
     for (byte b : buffer) {
-      wCRCin ^= (b & VALUE_0F);
+      wCRCin ^= (b &  0xFF);
       for (int j = 0; j < 8; j++) {
         if ((wCRCin & VALUE_01) != 0) {
           wCRCin >>>= 1;

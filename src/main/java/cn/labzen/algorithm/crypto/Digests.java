@@ -12,6 +12,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
+import static java.lang.ThreadLocal.withInitial;
+
 /**
  * 加密散列函数 <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">Cryptographic hash function</a>
  * <p>
@@ -29,41 +31,41 @@ import java.nio.file.Files;
  */
 public final class Digests {
 
-  private static final Blake3Digest BLAKE3_DIGEST_INSTANCE = new Blake3Digest();
+  private static final ThreadLocal<Blake3Digest> BLAKE3_DIGEST = withInitial(Blake3Digest::new);
 
-  private static final BCMessageDigest BLAKE2B_160_DIGEST_INSTANCE = new Blake2b.Blake2b160();
-  private static final BCMessageDigest BLAKE2B_256_DIGEST_INSTANCE = new Blake2b.Blake2b256();
-  private static final BCMessageDigest BLAKE2B_384_DIGEST_INSTANCE = new Blake2b.Blake2b384();
-  private static final BCMessageDigest BLAKE2B_512_DIGEST_INSTANCE = new Blake2b.Blake2b512();
-  private static final BCMessageDigest BLAKE2S_128_DIGEST_INSTANCE = new Blake2s.Blake2s128();
-  private static final BCMessageDigest BLAKE2S_160_DIGEST_INSTANCE = new Blake2s.Blake2s160();
-  private static final BCMessageDigest BLAKE2S_224_DIGEST_INSTANCE = new Blake2s.Blake2s224();
-  private static final BCMessageDigest BLAKE2S_256_DIGEST_INSTANCE = new Blake2s.Blake2s256();
+  private static final ThreadLocal<BCMessageDigest> BLAKE2B_160_DIGEST = withInitial(Blake2b.Blake2b160::new);
+  private static final ThreadLocal<BCMessageDigest> BLAKE2B_256_DIGEST = withInitial(Blake2b.Blake2b256::new);
+  private static final ThreadLocal<BCMessageDigest> BLAKE2B_384_DIGEST = withInitial(Blake2b.Blake2b384::new);
+  private static final ThreadLocal<BCMessageDigest> BLAKE2B_512_DIGEST = withInitial(Blake2b.Blake2b512::new);
+  private static final ThreadLocal<BCMessageDigest> BLAKE2S_128_DIGEST = withInitial(Blake2s.Blake2s128::new);
+  private static final ThreadLocal<BCMessageDigest> BLAKE2S_160_DIGEST = withInitial(Blake2s.Blake2s160::new);
+  private static final ThreadLocal<BCMessageDigest> BLAKE2S_224_DIGEST = withInitial(Blake2s.Blake2s224::new);
+  private static final ThreadLocal<BCMessageDigest> BLAKE2S_256_DIGEST = withInitial(Blake2s.Blake2s256::new);
 
-  private static final Keccak.DigestKeccak KECCAK224_DIGEST_INSTANCE = new Keccak.Digest224();
-  private static final Keccak.DigestKeccak KECCAK256_DIGEST_INSTANCE = new Keccak.Digest256();
-  private static final Keccak.DigestKeccak KECCAK288_DIGEST_INSTANCE = new Keccak.Digest288();
-  private static final Keccak.DigestKeccak KECCAK384_DIGEST_INSTANCE = new Keccak.Digest384();
-  private static final Keccak.DigestKeccak KECCAK512_DIGEST_INSTANCE = new Keccak.Digest512();
+  private static final ThreadLocal<Keccak.DigestKeccak> KECCAK224_DIGEST = withInitial(Keccak.Digest224::new);
+  private static final ThreadLocal<Keccak.DigestKeccak> KECCAK256_DIGEST = withInitial(Keccak.Digest256::new);
+  private static final ThreadLocal<Keccak.DigestKeccak> KECCAK288_DIGEST = withInitial(Keccak.Digest288::new);
+  private static final ThreadLocal<Keccak.DigestKeccak> KECCAK384_DIGEST = withInitial(Keccak.Digest384::new);
+  private static final ThreadLocal<Keccak.DigestKeccak> KECCAK512_DIGEST = withInitial(Keccak.Digest512::new);
 
-  private static final BCMessageDigest RIPEMD128_DIGEST_INSTANCE = new RIPEMD128.Digest();
-  private static final BCMessageDigest RIPEMD160_DIGEST_INSTANCE = new RIPEMD160.Digest();
-  private static final BCMessageDigest RIPEMD256_DIGEST_INSTANCE = new RIPEMD256.Digest();
-  private static final BCMessageDigest RIPEMD320_DIGEST_INSTANCE = new RIPEMD320.Digest();
+  private static final ThreadLocal<BCMessageDigest> RIPEMD128_DIGEST = withInitial(RIPEMD128.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> RIPEMD160_DIGEST = withInitial(RIPEMD160.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> RIPEMD256_DIGEST = withInitial(RIPEMD256.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> RIPEMD320_DIGEST = withInitial(RIPEMD320.Digest::new);
 
-  private static final BCMessageDigest SM3_DIGEST_INSTANCE = new SM3.Digest();
-  private static final BCMessageDigest TIGER_DIGEST_INSTANCE = new Tiger.Digest();
-  private static final BCMessageDigest WHIRLPOOL_DIGEST_INSTANCE = new Whirlpool.Digest();
-  private static final BCMessageDigest MD5_DIGEST_INSTANCE = new MD5.Digest();
+  private static final ThreadLocal<BCMessageDigest> SM3_DIGEST = withInitial(SM3.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> TIGER_DIGEST = withInitial(Tiger.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> WHIRLPOOL_DIGEST = withInitial(Whirlpool.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> MD5_DIGEST = withInitial(MD5.Digest::new);
 
-  private static final BCMessageDigest SHA2_224_DIGEST_INSTANCE = new SHA224.Digest();
-  private static final BCMessageDigest SHA2_256_DIGEST_INSTANCE = new SHA256.Digest();
-  private static final BCMessageDigest SHA2_384_DIGEST_INSTANCE = new SHA384.Digest();
-  private static final BCMessageDigest SHA2_512_DIGEST_INSTANCE = new SHA512.Digest();
-  private static final BCMessageDigest SHA3_224_DIGEST_INSTANCE = new SHA3.Digest224();
-  private static final BCMessageDigest SHA3_256_DIGEST_INSTANCE = new SHA3.Digest256();
-  private static final BCMessageDigest SHA3_384_DIGEST_INSTANCE = new SHA3.Digest384();
-  private static final BCMessageDigest SHA3_512_DIGEST_INSTANCE = new SHA3.Digest512();
+  private static final ThreadLocal<BCMessageDigest> SHA2_224_DIGEST = withInitial(SHA224.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> SHA2_256_DIGEST = withInitial(SHA256.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> SHA2_384_DIGEST = withInitial(SHA384.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> SHA2_512_DIGEST = withInitial(SHA512.Digest::new);
+  private static final ThreadLocal<BCMessageDigest> SHA3_224_DIGEST = withInitial(SHA3.Digest224::new);
+  private static final ThreadLocal<BCMessageDigest> SHA3_256_DIGEST = withInitial(SHA3.Digest256::new);
+  private static final ThreadLocal<BCMessageDigest> SHA3_384_DIGEST = withInitial(SHA3.Digest384::new);
+  private static final ThreadLocal<BCMessageDigest> SHA3_512_DIGEST = withInitial(SHA3.Digest512::new);
 
   private Digests() {
   }
@@ -163,11 +165,12 @@ public final class Digests {
    * @param cycles 散列摘要次数
    */
   public static String blake3(byte[] bytes, int cycles) {
-    BLAKE3_DIGEST_INSTANCE.update(bytes, 0, bytes.length);
-    int digestedSize = BLAKE3_DIGEST_INSTANCE.getDigestSize();
+    Blake3Digest digest = BLAKE3_DIGEST.get();
+    digest.update(bytes, 0, bytes.length);
+    int digestedSize = digest.getDigestSize();
     byte[] digested = new byte[digestedSize];
-    BLAKE3_DIGEST_INSTANCE.doOutput(digested, 0, digested.length);
-    BLAKE3_DIGEST_INSTANCE.reset();
+    digest.doOutput(digested, 0, digested.length);
+    digest.reset();
 
     if (cycles == 1) {
       return Hex.toHexString(digested);
@@ -375,14 +378,14 @@ public final class Digests {
   public static String blake2(byte[] bytes, Blake2Length length, int cycles) {
     BCMessageDigest digester;
     switch (length) {
-      case BLAKE2B_160 -> digester = BLAKE2B_160_DIGEST_INSTANCE;
-      case BLAKE2B_256 -> digester = BLAKE2B_256_DIGEST_INSTANCE;
-      case BLAKE2B_384 -> digester = BLAKE2B_384_DIGEST_INSTANCE;
-      case BLAKE2B_512 -> digester = BLAKE2B_512_DIGEST_INSTANCE;
-      case BLAKE2S_128 -> digester = BLAKE2S_128_DIGEST_INSTANCE;
-      case BLAKE2S_160 -> digester = BLAKE2S_160_DIGEST_INSTANCE;
-      case BLAKE2S_224 -> digester = BLAKE2S_224_DIGEST_INSTANCE;
-      case BLAKE2S_256 -> digester = BLAKE2S_256_DIGEST_INSTANCE;
+      case BLAKE2B_160 -> digester = BLAKE2B_160_DIGEST.get();
+      case BLAKE2B_256 -> digester = BLAKE2B_256_DIGEST.get();
+      case BLAKE2B_384 -> digester = BLAKE2B_384_DIGEST.get();
+      case BLAKE2B_512 -> digester = BLAKE2B_512_DIGEST.get();
+      case BLAKE2S_128 -> digester = BLAKE2S_128_DIGEST.get();
+      case BLAKE2S_160 -> digester = BLAKE2S_160_DIGEST.get();
+      case BLAKE2S_224 -> digester = BLAKE2S_224_DIGEST.get();
+      case BLAKE2S_256 -> digester = BLAKE2S_256_DIGEST.get();
       default -> throw new IllegalArgumentException("Unknown blake-length: " + length);
     }
 
@@ -596,11 +599,11 @@ public final class Digests {
   public static String keccak(byte[] bytes, KeccakLength length, int cycles) {
     Keccak.DigestKeccak digester;
     switch (length) {
-      case KECCAK_224 -> digester = KECCAK224_DIGEST_INSTANCE;
-      case KECCAK_256 -> digester = KECCAK256_DIGEST_INSTANCE;
-      case KECCAK_288 -> digester = KECCAK288_DIGEST_INSTANCE;
-      case KECCAK_384 -> digester = KECCAK384_DIGEST_INSTANCE;
-      case KECCAK_512 -> digester = KECCAK512_DIGEST_INSTANCE;
+      case KECCAK_224 -> digester = KECCAK224_DIGEST.get();
+      case KECCAK_256 -> digester = KECCAK256_DIGEST.get();
+      case KECCAK_288 -> digester = KECCAK288_DIGEST.get();
+      case KECCAK_384 -> digester = KECCAK384_DIGEST.get();
+      case KECCAK_512 -> digester = KECCAK512_DIGEST.get();
       default -> throw new IllegalArgumentException("Unknown keccak-length: " + length);
     }
 
@@ -814,10 +817,10 @@ public final class Digests {
   public static String ripemd(byte[] bytes, RipemdLength length, int cycles) {
     BCMessageDigest digester;
     switch (length) {
-      case RIPEMD_128 -> digester = RIPEMD128_DIGEST_INSTANCE;
-      case RIPEMD_160 -> digester = RIPEMD160_DIGEST_INSTANCE;
-      case RIPEMD_256 -> digester = RIPEMD256_DIGEST_INSTANCE;
-      case RIPEMD_320 -> digester = RIPEMD320_DIGEST_INSTANCE;
+      case RIPEMD_128 -> digester = RIPEMD128_DIGEST.get();
+      case RIPEMD_160 -> digester = RIPEMD160_DIGEST.get();
+      case RIPEMD_256 -> digester = RIPEMD256_DIGEST.get();
+      case RIPEMD_320 -> digester = RIPEMD320_DIGEST.get();
       default -> throw new IllegalArgumentException("Unknown ripemd-length: " + length);
     }
 
@@ -928,9 +931,10 @@ public final class Digests {
    * @param cycles 散列摘要次数
    */
   public static String sm3(byte[] bytes, int cycles) {
-    SM3_DIGEST_INSTANCE.update(bytes);
-    byte[] digested = SM3_DIGEST_INSTANCE.digest();
-    SM3_DIGEST_INSTANCE.reset();
+    BCMessageDigest digest = SM3_DIGEST.get();
+    digest.update(bytes);
+    byte[] digested = digest.digest();
+    digest.reset();
 
     if (cycles == 1) {
       return Hex.toHexString(digested);
@@ -1035,9 +1039,10 @@ public final class Digests {
    * @param cycles 散列摘要次数
    */
   public static String tiger(byte[] bytes, int cycles) {
-    TIGER_DIGEST_INSTANCE.update(bytes);
-    byte[] digested = TIGER_DIGEST_INSTANCE.digest();
-    TIGER_DIGEST_INSTANCE.reset();
+    BCMessageDigest digest = TIGER_DIGEST.get();
+    digest.update(bytes);
+    byte[] digested = digest.digest();
+    digest.reset();
 
     if (cycles == 1) {
       return Hex.toHexString(digested);
@@ -1142,9 +1147,10 @@ public final class Digests {
    * @param cycles 散列摘要次数
    */
   public static String whirlpool(byte[] bytes, int cycles) {
-    WHIRLPOOL_DIGEST_INSTANCE.update(bytes);
-    byte[] digested = WHIRLPOOL_DIGEST_INSTANCE.digest();
-    WHIRLPOOL_DIGEST_INSTANCE.reset();
+    BCMessageDigest digest = WHIRLPOOL_DIGEST.get();
+    digest.update(bytes);
+    byte[] digested = digest.digest();
+    digest.reset();
 
     if (cycles == 1) {
       return Hex.toHexString(digested);
@@ -1249,9 +1255,10 @@ public final class Digests {
    * @param cycles 散列摘要次数
    */
   public static String md5(byte[] bytes, int cycles) {
-    MD5_DIGEST_INSTANCE.update(bytes);
-    byte[] digested = MD5_DIGEST_INSTANCE.digest();
-    MD5_DIGEST_INSTANCE.reset();
+    BCMessageDigest digest = MD5_DIGEST.get();
+    digest.update(bytes);
+    byte[] digested = digest.digest();
+    digest.reset();
 
     if (cycles == 1) {
       return Hex.toHexString(digested);
@@ -1459,10 +1466,10 @@ public final class Digests {
   public static String sha2(byte[] bytes, SHALength length, int cycles) {
     BCMessageDigest digester;
     switch (length) {
-      case SHA_224 -> digester = SHA2_224_DIGEST_INSTANCE;
-      case SHA_256 -> digester = SHA2_256_DIGEST_INSTANCE;
-      case SHA_384 -> digester = SHA2_384_DIGEST_INSTANCE;
-      case SHA_512 -> digester = SHA2_512_DIGEST_INSTANCE;
+      case SHA_224 -> digester = SHA2_224_DIGEST.get();
+      case SHA_256 -> digester = SHA2_256_DIGEST.get();
+      case SHA_384 -> digester = SHA2_384_DIGEST.get();
+      case SHA_512 -> digester = SHA2_512_DIGEST.get();
       default -> throw new IllegalArgumentException("Unknown sha2-length: " + length);
     }
 
@@ -1477,7 +1484,6 @@ public final class Digests {
   }
 
   // ===================================================================================================================
-
 
   /**
    * SHA-3散列摘要算法，默认编码UTF-8，默认算法长度为SHA-256，默认摘要次数 1
@@ -1673,10 +1679,10 @@ public final class Digests {
   public static String sha3(byte[] bytes, SHALength length, int cycles) {
     BCMessageDigest digester;
     switch (length) {
-      case SHA_224 -> digester = SHA3_224_DIGEST_INSTANCE;
-      case SHA_256 -> digester = SHA3_256_DIGEST_INSTANCE;
-      case SHA_384 -> digester = SHA3_384_DIGEST_INSTANCE;
-      case SHA_512 -> digester = SHA3_512_DIGEST_INSTANCE;
+      case SHA_224 -> digester = SHA3_224_DIGEST.get();
+      case SHA_256 -> digester = SHA3_256_DIGEST.get();
+      case SHA_384 -> digester = SHA3_384_DIGEST.get();
+      case SHA_512 -> digester = SHA3_512_DIGEST.get();
       default -> throw new IllegalArgumentException("Unknown sha3-length: " + length);
     }
 
