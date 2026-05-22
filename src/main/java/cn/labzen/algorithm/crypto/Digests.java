@@ -25,7 +25,7 @@ import static java.lang.ThreadLocal.withInitial;
  * <li> <a href="https://en.wikipedia.org/wiki/SM3_(hash_function)">SM3</a>
  * <li> <a href="https://www.cs.technion.ac.il/~biham/Reports/Tiger/">Tiger</a>
  * <li> <a href="https://web.archive.org/web/20171129084214/http://www.larc.usp.br/~pbarreto/WhirlpoolPage.html">Whirlpool</a>
- * <li> <a href="www.w3.org/TR/1998/REC-DSig-label/MD5-1_0">MD5</a>
+ * <li> <a href="https://www.w3.org/TR/1998/REC-DSig-label/MD5-1_0">MD5</a>
  * <li> <a href="https://en.wikipedia.org/wiki/SHA-2">SHA-2</a>
  * <li> <a href="https://en.wikipedia.org/wiki/SHA-3">SHA-3</a>
  */
@@ -1297,7 +1297,7 @@ public final class Digests {
    * SHA-2散列摘要算法，默认编码UTF-8，默认摘要次数 1
    *
    * @param plaintext 需要做摘要的字符串
-   * @param length    Ripemd算法长度
+   * @param length    SHA-2算法长度
    * @see Digests#sha2(String, SHALength, int)
    */
   public static String sha2(String plaintext, SHALength length) {
@@ -1308,7 +1308,7 @@ public final class Digests {
    * SHA-2散列摘要算法，默认编码UTF-8
    *
    * @param plaintext 需要做摘要的字符串
-   * @param length    Ripemd算法长度
+   * @param length    SHA-2算法长度
    * @param cycles    散列摘要次数
    * @see Digests#sha2(String, SHALength, int)
    */
@@ -1321,7 +1321,7 @@ public final class Digests {
    *
    * @param plaintext 需要做摘要的字符串
    * @param charset   字符编码
-   * @param length    Ripemd算法长度
+   * @param length    SHA-2算法长度
    * @param cycles    散列摘要次数
    * @see Digests#sha2(String, SHALength, int)
    */
@@ -1354,7 +1354,7 @@ public final class Digests {
    * SHA-2散列摘要算法，默认摘要次数 1
    *
    * @param obj    需要做摘要的任意类实例
-   * @param length Ripemd算法长度
+   * @param length SHA-2算法长度
    * @see Digests#sha2(Object, SHALength, int)
    */
   public static String sha2(Object obj, SHALength length) {
@@ -1365,7 +1365,7 @@ public final class Digests {
    * SHA-2散列摘要算法
    *
    * @param obj    需要做摘要的任意类实例
-   * @param length Ripemd算法长度
+   * @param length SHA-2算法长度
    * @param cycles 散列摘要次数
    * @see Digests#sha2(Object, SHALength, int)
    */
@@ -1398,7 +1398,7 @@ public final class Digests {
    * SHA-2散列摘要算法，默认摘要次数 1
    *
    * @param file   需要做摘要的文件
-   * @param length Ripemd算法长度
+   * @param length SHA-2算法长度
    * @see Digests#sha2(File, SHALength, int)
    */
   public static String sha2(File file, SHALength length) {
@@ -1409,7 +1409,7 @@ public final class Digests {
    * SHA-2散列摘要算法
    *
    * @param file   需要做摘要的文件
-   * @param length Ripemd算法长度
+   * @param length SHA-2算法长度
    * @param cycles 散列摘要次数
    * @see Digests#sha2(File, SHALength, int)
    */
@@ -1449,7 +1449,7 @@ public final class Digests {
    * SHA-2散列摘要算法，默认摘要次数 1
    *
    * @param bytes  需要做摘要的字节数组
-   * @param length Ripemd算法长度
+   * @param length SHA-2算法长度
    * @see Digests#sha2(byte[], SHALength, int)
    */
   public static String sha2(byte[] bytes, SHALength length) {
@@ -1460,7 +1460,7 @@ public final class Digests {
    * SHA-2散列摘要算法
    *
    * @param bytes  需要做摘要的字节数组
-   * @param length Ripemd算法长度
+   * @param length SHA-2算法长度
    * @param cycles 散列摘要次数
    */
   public static String sha2(byte[] bytes, SHALength length, int cycles) {
@@ -1510,7 +1510,7 @@ public final class Digests {
    * SHA-3散列摘要算法，默认编码UTF-8，默认摘要次数 1
    *
    * @param plaintext 需要做摘要的字符串
-   * @param length    Ripemd算法长度
+   * @param length    SHA-3算法长度
    * @see Digests#sha3(String, SHALength, int)
    */
   public static String sha3(String plaintext, SHALength length) {
@@ -1521,7 +1521,7 @@ public final class Digests {
    * SHA-3散列摘要算法，默认编码UTF-8
    *
    * @param plaintext 需要做摘要的字符串
-   * @param length    Ripemd算法长度
+   * @param length    SHA-3算法长度
    * @param cycles    散列摘要次数
    * @see Digests#sha3(String, SHALength, int)
    */
@@ -1534,7 +1534,7 @@ public final class Digests {
    *
    * @param plaintext 需要做摘要的字符串
    * @param charset   字符编码
-   * @param length    Ripemd算法长度
+   * @param length    SHA-3算法长度
    * @param cycles    散列摘要次数
    * @see Digests#sha3(String, SHALength, int)
    */
@@ -1567,7 +1567,7 @@ public final class Digests {
    * SHA-3散列摘要算法，默认摘要次数 1
    *
    * @param obj    需要做摘要的任意类实例
-   * @param length Ripemd算法长度
+   * @param length SHA-3算法长度
    * @see Digests#sha3(Object, SHALength, int)
    */
   public static String sha3(Object obj, SHALength length) {
@@ -1578,7 +1578,7 @@ public final class Digests {
    * SHA-3散列摘要算法
    *
    * @param obj    需要做摘要的任意类实例
-   * @param length Ripemd算法长度
+   * @param length SHA-3算法长度
    * @param cycles 散列摘要次数
    * @see Digests#sha3(Object, SHALength, int)
    */
@@ -1611,7 +1611,7 @@ public final class Digests {
    * SHA-3散列摘要算法，默认摘要次数 1
    *
    * @param file   需要做摘要的文件
-   * @param length Ripemd算法长度
+   * @param length SHA-3算法长度
    * @see Digests#sha3(File, SHALength, int)
    */
   public static String sha3(File file, SHALength length) {
@@ -1622,7 +1622,7 @@ public final class Digests {
    * SHA-3散列摘要算法
    *
    * @param file   需要做摘要的文件
-   * @param length Ripemd算法长度
+   * @param length SHA-3算法长度
    * @param cycles 散列摘要次数
    * @see Digests#sha3(File, SHALength, int)
    */
@@ -1662,7 +1662,7 @@ public final class Digests {
    * SHA-3散列摘要算法，默认摘要次数 1
    *
    * @param bytes  需要做摘要的字节数组
-   * @param length Ripemd算法长度
+   * @param length SHA-3算法长度
    * @see Digests#sha3(byte[], SHALength, int)
    */
   public static String sha3(byte[] bytes, SHALength length) {
@@ -1673,7 +1673,7 @@ public final class Digests {
    * SHA-3散列摘要算法
    *
    * @param bytes  需要做摘要的字节数组
-   * @param length Ripemd算法长度
+   * @param length SHA-3算法长度
    * @param cycles 散列摘要次数
    */
   public static String sha3(byte[] bytes, SHALength length, int cycles) {

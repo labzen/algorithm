@@ -7,6 +7,7 @@ import net.jacksum.algorithms.AbstractChecksum;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.security.NoSuchAlgorithmException;
@@ -22,6 +23,7 @@ import static net.jacksum.HashFunctionFactory.getHashFunction;
 public final class Checksums {
 
   private static final Map<Algorithms, String> CHECKSUM_ALGORITHM_NAMES;
+  private static final int DEFAULT_BUFFER_SIZE = 8192;
 
   static {
     CHECKSUM_ALGORITHM_NAMES = Map.ofEntries(Map.entry(Algorithms.ADLER32, "adler32"),
@@ -77,7 +79,7 @@ public final class Checksums {
       checksum.update(bytes);
       return checksum.getValue();
     } catch (NoSuchAlgorithmException e) {
-      return null;
+      throw new RuntimeException("Checksum algorithm not available: " + algorithmName, e);
     }
   }
 
@@ -110,9 +112,20 @@ public final class Checksums {
       return null;
     }
 
-    try {
-      return bytes(Files.readAllBytes(file.toPath()), algorithm);
-    } catch (IOException e) {
+    String algorithmName = CHECKSUM_ALGORITHM_NAMES.get(algorithm);
+    if (algorithmName == null) {
+      return null;
+    }
+
+    try (InputStream in = Files.newInputStream(file.toPath())) {
+      AbstractChecksum checksum = getHashFunction(algorithmName);
+      byte[] buf = new byte[DEFAULT_BUFFER_SIZE];
+      int read;
+      while ((read = in.read(buf)) != -1) {
+        checksum.update(buf, 0, read);
+      }
+      return checksum.getValue();
+    } catch (IOException | NoSuchAlgorithmException e) {
       return null;
     }
   }

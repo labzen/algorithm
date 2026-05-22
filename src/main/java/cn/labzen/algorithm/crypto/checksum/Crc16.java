@@ -23,8 +23,8 @@ public final class Crc16 {
 
   private static final int VALUE_00 = 0x0000;
   private static final int VALUE_01 = 0x0001;
-  private static final int VALUE_0F = 0x00ff;
-  private static final int VALUE_FF = 0xffff;
+  private static final int VALUE_FF = 0x00ff;
+  private static final int VALUE_FFFF = 0xffff;
   private static final int POLY_8408 = 0x8408;
   private static final int POLY_1021 = 0x1021;
   private static final int POLY_A001 = 0xa001;
@@ -58,7 +58,7 @@ public final class Crc16 {
    * CRC16_CCITT_FALSE：多项式x16+x12+x5+1（0x1021），初始值0xFFFF，低位在后，高位在前，结果与0x0000异或
    */
   public static int ccittWithFalse(byte[] buffer) {
-    int wCRCin = VALUE_FF;
+    int wCRCin = VALUE_FFFF;
     for (byte b : buffer) {
       for (int i = 0; i < 8; i++) {
         boolean bit = ((b >> (7 - i)) & 1) == 1;
@@ -69,7 +69,7 @@ public final class Crc16 {
         }
       }
     }
-    wCRCin &= VALUE_FF;
+    wCRCin &= VALUE_FFFF;
     return wCRCin ^ VALUE_00;
   }
 
@@ -89,7 +89,7 @@ public final class Crc16 {
         }
       }
     }
-    wCRCin &= VALUE_FF;
+    wCRCin &= VALUE_FFFF;
     return wCRCin ^ VALUE_00;
   }
 
@@ -98,9 +98,9 @@ public final class Crc16 {
    * 0x8408是0x1021按位颠倒后的结果。
    */
   public static int x25(byte[] buffer) {
-    int wCRCin = VALUE_FF;
+    int wCRCin = VALUE_FFFF;
     for (byte b : buffer) {
-      wCRCin ^= (b & VALUE_0F);
+      wCRCin ^= (b & VALUE_FF);
       for (int j = 0; j < 8; j++) {
         if ((wCRCin & VALUE_01) != 0) {
           wCRCin >>>= 1;
@@ -110,7 +110,7 @@ public final class Crc16 {
         }
       }
     }
-    return wCRCin ^ VALUE_FF;
+    return wCRCin ^ VALUE_FFFF;
   }
 
   /**
@@ -119,9 +119,9 @@ public final class Crc16 {
    * 0xA001是0x8005按位颠倒后的结果
    */
   public static int modbus(byte[] buffer) {
-    int wCRCin = VALUE_FF;
+    int wCRCin = VALUE_FFFF;
     for (byte b : buffer) {
-      wCRCin ^= (b & VALUE_0F);
+      wCRCin ^= (b & VALUE_FF);
       for (int j = 0; j < 8; j++) {
         if ((wCRCin & VALUE_01) != 0) {
           wCRCin >>>= 1;
@@ -142,7 +142,7 @@ public final class Crc16 {
   public static int ibm(byte[] buffer) {
     int wCRCin = VALUE_00;
     for (byte b : buffer) {
-      wCRCin ^= (b & VALUE_0F);
+      wCRCin ^= (b & VALUE_FF);
       for (int j = 0; j < 8; j++) {
         if ((wCRCin & VALUE_01) != 0) {
           wCRCin >>>= 1;
@@ -162,7 +162,7 @@ public final class Crc16 {
   public static int maxim(byte[] buffer) {
     int wCRCin = VALUE_00;
     for (byte b : buffer) {
-      wCRCin ^= (b & VALUE_0F);
+      wCRCin ^= (b & VALUE_FF);
       for (int j = 0; j < 8; j++) {
         if ((wCRCin & VALUE_01) != 0) {
           wCRCin >>>= 1;
@@ -172,7 +172,7 @@ public final class Crc16 {
         }
       }
     }
-    return wCRCin ^ VALUE_FF;
+    return wCRCin ^ VALUE_FFFF;
   }
 
   /**
@@ -180,9 +180,9 @@ public final class Crc16 {
    * 0xA001是0x8005按位颠倒后的结果
    */
   public static int usb(byte[] buffer) {
-    int wCRCin = VALUE_FF;
+    int wCRCin = VALUE_FFFF;
     for (byte b : buffer) {
-      wCRCin ^= (b & VALUE_0F);
+      wCRCin ^= (b & VALUE_FF);
       for (int j = 0; j < 8; j++) {
         if ((wCRCin & VALUE_01) != 0) {
           wCRCin >>>= 1;
@@ -192,7 +192,7 @@ public final class Crc16 {
         }
       }
     }
-    return wCRCin ^ VALUE_FF;
+    return wCRCin ^ VALUE_FFFF;
   }
 
   /**
@@ -202,7 +202,7 @@ public final class Crc16 {
   public static int dnp(byte[] buffer) {
     int wCRCin = VALUE_00;
     for (byte b : buffer) {
-      wCRCin ^= (b & VALUE_0F);
+      wCRCin ^= (b & VALUE_FF);
       for (int j = 0; j < 8; j++) {
         if ((wCRCin & VALUE_01) != 0) {
           wCRCin >>>= 1;
@@ -212,6 +212,6 @@ public final class Crc16 {
         }
       }
     }
-    return wCRCin ^ VALUE_FF;
+    return wCRCin ^ VALUE_FFFF;
   }
 }

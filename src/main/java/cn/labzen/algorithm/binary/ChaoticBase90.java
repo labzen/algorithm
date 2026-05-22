@@ -79,8 +79,8 @@ public final class ChaoticBase90 {
   public static String decode(byte[] encodedTextBytes) {
     int textSize = encodedTextBytes.length;
 
-    // 计算解码后的字节大小 (原来的 BigDecimal 换成整数运算)
-    int decodeSize = textSize * 4 / 5;
+    // 计算解码后的字节大小，向上取整以容纳不足5字符的尾部数据
+    int decodeSize = (textSize * 4 + 4) / 5; // 等价于 ceil(textSize * 4.0 / 5)
     ByteBuffer buffer = ByteBuffer.allocate(decodeSize);
 
     byte[] chunk = new byte[5];
@@ -116,11 +116,13 @@ public final class ChaoticBase90 {
       throw new IllegalArgumentException("You can only decode chunks of size 5.");
     }
     int value = 0;
-    value += ASCII_MAPPING.get((char) chunk[0]) * BASE90_POWER[4];
-    value += ASCII_MAPPING.get((char) chunk[1]) * BASE90_POWER[3];
-    value += ASCII_MAPPING.get((char) chunk[2]) * BASE90_POWER[2];
-    value += ASCII_MAPPING.get((char) chunk[3]) * BASE90_POWER[1];
-    value += ASCII_MAPPING.get((char) chunk[4]) * BASE90_POWER[0];
+    for (int i = 0; i < 5; i++) {
+      Integer mapped = ASCII_MAPPING.get((char) chunk[i]);
+      if (mapped == null) {
+        throw new IllegalArgumentException("Invalid Base90 character at position " + i + ": " + (char) chunk[i]);
+      }
+      value += mapped * BASE90_POWER[4 - i];
+    }
 
     return intToByte(value);
   }

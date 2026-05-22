@@ -24,13 +24,18 @@ public class SymmetricalCipher {
   private Cipher encryptCipher;
   private Cipher decryptCipher;
 
-  public SymmetricalCipher(CipherTransformation transformation) {
+  public SymmetricalCipher(CipherTransformation transformation, Key key, AlgorithmParameters parameters) {
     this.transformation = transformation;
+    this.key = key;
+    this.parameters = parameters;
+  }
+
+  public SymmetricalCipher(CipherTransformation transformation) {
+    this(transformation, null, null);
   }
 
   public SymmetricalCipher withKey(Key key) {
-    this.key = key;
-    return this;
+    return new SymmetricalCipher(this.transformation, key, this.parameters);
   }
 
   public SymmetricalCipher withKey(String stringKey, CipherAlgorithm algorithm) {
@@ -38,9 +43,9 @@ public class SymmetricalCipher {
   }
 
   public SymmetricalCipher withKey(byte[] byteKey, CipherAlgorithm algorithm) {
-    this.key = new SecretKeySpec(byteKey,
-        algorithm == null ? DEFAULT_CIPHER_ALGORITHM.getValue() : algorithm.getValue());
-    return this;
+    return new SymmetricalCipher(this.transformation,
+        new SecretKeySpec(byteKey, algorithm == null ? DEFAULT_CIPHER_ALGORITHM.getValue() : algorithm.getValue()),
+        this.parameters);
   }
 
   public SymmetricalCipher randomKey(KeyGeneratorAlgorithm algorithm) {
@@ -66,8 +71,8 @@ public class SymmetricalCipher {
       }
     });
 
-    this.key = keyGenerator.generateKey();
-    return this;
+    SecretKey key = keyGenerator.generateKey();
+    return withKey(key);
   }
 
   public String stringKey() {
@@ -85,8 +90,7 @@ public class SymmetricalCipher {
     try {
       AlgorithmParameters instance = AlgorithmParameters.getInstance(transformation.algorithm().getValue());
       instance.init(parameter);
-      this.parameters = instance;
-      return this;
+      return new SymmetricalCipher(this.transformation, this.key, instance);
     } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
       throw new RuntimeException(e);
     }
